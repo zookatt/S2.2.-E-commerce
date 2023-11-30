@@ -110,7 +110,8 @@ function buy(id) {
 
 // Exercise 2
 function cleanCart() {
-
+    cart = [];  
+    console.log("Carrito vacío", cart);
     
 }
 
