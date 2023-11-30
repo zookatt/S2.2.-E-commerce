@@ -113,6 +113,7 @@ function cleanCart() {
     cart = [];  
     console.log("Carrito vacío", cart);
     calculateTotal();
+    printCart();
 }
 
 // Exercise 3
@@ -152,7 +153,34 @@ function applyPromotionsCart(cartItem) {
 // Exercise 5
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
-   
+    const cartTable = document.getElementById('cart_list');
+    cartTable.innerHTML = '';
+    const totalCart = document.getElementById('total_price');
+    totalCart.innerHTML = '';
+    
+
+    let totalPrice = 0;
+
+    for (let i = 0; i < cart.length; i++) {
+        const cartItem = cart[i];
+        const row = document.createElement('tr');
+
+        const totalItemPrice = applyPromotionsCart(cartItem);
+
+        row.innerHTML = `
+          <th>${cartItem.name}</th>
+          <td>${cartItem.price.toFixed(2)}</td>
+          <td>${cartItem.quantity}</td>
+          <td>${totalItemPrice.toFixed(2)}</td>
+        `;
+
+        cartTable.appendChild(row); //anadir nueva linea de producto en la lista
+        totalPrice += totalItemPrice;
+    }
+
+    console.log("Total Price in printCart():", totalPrice.toFixed(2));
+    totalCart.innerHTML = `${totalPrice.toFixed(2)}`;
+    calculateTotal(); 
     
 }
 
