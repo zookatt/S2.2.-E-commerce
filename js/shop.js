@@ -118,19 +118,35 @@ function cleanCart() {
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
-    let totalPrice = 0;
-    for (let i = 0; i < cart.length; i++) {
-        const cartItem = cart[i];
-        totalPrice += cartItem.price*cartItem.quantity;  // Agrega el total del artículo al total general
-    }
-
-    console.log(totalPrice.toFixed(2));
-    document.getElementById("total_price").innerHTML = totalPrice.toFixed(2);
+     
+     let totalPrice = 0;
+     for (let i = 0; i < cart.length; i++) {
+         const cartItem = cart[i];
+         const totalItemPrice = applyPromotionsCart(cartItem);  // Calcula el total del artículo
+         totalPrice += totalItemPrice;  // Agrega el total del artículo al total general
+     }
+ 
+     console.log(totalPrice.toFixed(2));
+     document.getElementById("total_price").innerHTML = totalPrice.toFixed(2);
 }
 // Exercise 4
 function applyPromotionsCart(cartItem) {
     // Apply promotions to each item in the array "cart"
-    
+    let totalCartItem = 0;
+
+    if (cartItem.offer) {
+        const priceWithDiscount = cartItem.price * (100 - cartItem.offer.percent) / 100;
+        if (cartItem.quantity >= cartItem.offer.number) {
+            totalCartItem = priceWithDiscount * cartItem.quantity;
+            console.log(`Product "${cartItem.name}" with discount ${cartItem.offer.percent}% applied. Subtotal: ${totalCartItem.toFixed(2)}`);
+        } else {
+            totalCartItem = cartItem.price * cartItem.quantity;
+        }
+    } else {
+        totalCartItem = cartItem.price * cartItem.quantity;
+    }
+
+    return totalCartItem;
 }
 
 // Exercise 5
