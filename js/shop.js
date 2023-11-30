@@ -73,32 +73,70 @@ var products = [
 var cart = [];
 
 var total = 0;
+var contador = 0;
+function updateCartCounter() {
+    const contadorElement = document.getElementById('count_product');
+    contadorElement.innerHTML = cart.length;
+}
 
 // Exercise 1
 function buy(id) {
-    // 1. Loop for to the array products to get the item to add to cart
-    // 2. Add found product to the cart array
+
+    let productAdded;
+    for (let i = 0; i <= products.length; i++) {
+        if (products[i].id === id) {
+            productAdded = products[i];
+            break;
+        }
+    }
+
+    const cartItem = cart.find(item => item.id === id);
+    let quantity = 1;
+
+    if (cartItem) { //validar si ya esxiste en carrito - entonces subir propiedad quantity
+        quantity = cartItem.quantity + 1;
+        cartItem.quantity = quantity;
+    } else { // si no existe - anadir al carrito y subir propiedad quantity
+        cart.push({ ...productAdded, quantity: 1 });
+        console.log(cart);     
+    }
+    console.log("Producto anadido", productAdded.name, "Cantidad:", quantity);//sale en consola
+
+    calculateTotal(cart);
+    const contadorElement = document.getElementById('count_product');
+    contadorElement.innerHTML = cart.length;
 }
+
 
 // Exercise 2
 function cleanCart() {
 
+    
 }
 
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
+   
 }
-
 // Exercise 4
-function applyPromotionsCart() {
+function applyPromotionsCart(cartItem) {
     // Apply promotions to each item in the array "cart"
+    
 }
 
 // Exercise 5
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+   
+    
 }
+
+
+
+
+
+
 
 
 // ** Nivell II **
