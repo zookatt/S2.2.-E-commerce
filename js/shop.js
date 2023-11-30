@@ -112,13 +112,20 @@ function buy(id) {
 function cleanCart() {
     cart = [];  
     console.log("Carrito vacío", cart);
-    
+    calculateTotal();
 }
 
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
-   
+    let totalPrice = 0;
+    for (let i = 0; i < cart.length; i++) {
+        const cartItem = cart[i];
+        totalPrice += cartItem.price*cartItem.quantity;  // Agrega el total del artículo al total general
+    }
+
+    console.log(totalPrice.toFixed(2));
+    document.getElementById("total_price").innerHTML = totalPrice.toFixed(2);
 }
 // Exercise 4
 function applyPromotionsCart(cartItem) {
